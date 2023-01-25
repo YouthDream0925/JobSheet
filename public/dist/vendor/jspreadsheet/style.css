@@ -1,0 +1,41 @@
+
+/* node_modules npm file path */
+/* @import "../../../../node_modules/jsuites/dist/jsuites.css"; */
+/* @import "../../../../node_modules/jspreadsheet-ce/dist/jspreadsheet.css"; */
+
+/* Local css file path */
+@import "jsuites.css";
+@import "jspreadsheet.css";
+
+.jexcel_content { padding-bottom: 0; }
+.jexcel { 
+    background-color: var(--card-color);
+    color: var(--gray-6);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+}
+.jexcel [data-y="0"] .color{background-color: var(--accent-color) !important;}
+.jexcel [data-y="1"] .color{background-color: var(--primary-color) !important;}
+.jexcel [data-y="2"] .color{background-color: var(--theme-color1) !important;}
+.jexcel [data-y="3"] .color{background-color: var(--theme-color2) !important;}
+.jexcel [data-y="4"] .color{background-color: var(--theme-color3) !important;}
+.jexcel [data-y="5"] .color{background-color: var(--theme-color4) !important;}
+.jexcel [data-y="6"] .color{background-color: var(--theme-color5) !important;}
+.jexcel > thead > tr > td { 
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
+    background-color: transparent;
+    font-weight: 700;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.jexcel > tbody > tr > td{
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    padding: 10px;
+}
+.jexcel > tbody > tr > td:first-child{
+    background-color: transparent;
+}

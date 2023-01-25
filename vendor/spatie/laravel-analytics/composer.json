@@ -1,0 +1,61 @@
+{
+    "name": "spatie/laravel-analytics",
+    "description": "A Laravel package to retrieve Google Analytics data.",
+    "keywords": [
+        "spatie",
+        "google",
+        "analytics",
+        "retrieve",
+        "reports",
+        "laravel"
+    ],
+    "homepage": "https://github.com/spatie/laravel-analytics",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Freek Van der Herten",
+            "email": "freek@spatie.be",
+            "homepage": "https://spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "google/apiclient": "^2.7",
+        "laravel/framework": "^9.0",
+        "nesbot/carbon": "^2.0",
+        "spatie/laravel-package-tools": "^1.9",
+        "symfony/cache": "^6.0"
+    },
+    "require-dev": {
+        "league/flysystem": "^2.0|^3.0",
+        "mockery/mockery": "^1.4",
+        "orchestra/testbench": "^7.0",
+        "phpunit/phpunit": "^9.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\Analytics\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\Analytics\\AnalyticsServiceProvider"
+            ],
+            "aliases": {
+                "Analytics": "Spatie\\Analytics\\AnalyticsFacade"
+            }
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\Analytics\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
