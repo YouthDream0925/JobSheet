@@ -36,11 +36,13 @@
     @endif
 
     @if ($errors->any())
-    var message = "<?php echo $message; ?>";
-    new bs5.Toast({
-        body: lang.unexpectedError,
-        className: 'border-0 bg-danger text-white',
-        btnCloseWhite: true,
-    }).show();
+        @foreach ($errors->all() as $error)
+            var message = "<?php echo $error; ?>";
+            new bs5.Toast({
+                body: message,
+                className: 'border-0 bg-danger text-white',
+                btnCloseWhite: true,
+            }).show();
+        @endforeach
     @endif
 </script>
