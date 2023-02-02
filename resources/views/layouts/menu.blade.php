@@ -89,12 +89,12 @@
                 </li>
                 <li>
                     @if(request()->is('sendmessage*'))
-                    <a class="m-link active" href="{{ route('jobcards.index') }}">
+                    <a class="m-link active" href="https://drive.google.com/drive/folders/1fOVUiRXGwKeHq_sOCBNwUuNPM1ef8SlF" target="_blank">
                     <i class="me-3 fa fa-external-link"></i>
                     <span class="mx-3">{{ __('global.guide') }}</span>
                     </a>
                     @else
-                    <a class="m-link" href="{{ route('jobcards.index') }}">
+                    <a class="m-link" href="https://drive.google.com/drive/folders/1fOVUiRXGwKeHq_sOCBNwUuNPM1ef8SlF" target="_blank">
                     <i class="me-3 fa fa-external-link"></i>
                     <span class="mx-3">{{ __('global.guide') }}</span>
                     </a>
