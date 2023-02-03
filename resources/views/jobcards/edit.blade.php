@@ -140,7 +140,6 @@
                     <tr>
                         <th>{{ __('global.no') }}</th>
                         <th>{{ __('global.title') }}</th>
-                        <th>{{ __('global.description') }}</th>
                         <th>{{ __('global.status') }}</th>
                         <th>{{ __('global.creator') }}</th>
                         <th>{{ __('global.assignUsers') }}</th>
@@ -148,12 +147,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i = 0 @endphp
                     @foreach ($tasks as $key => $task)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td class="task-title-color" data-toggle="tooltip" data-bs-original-title="{{$task->title}}">{!! Str::of($task->title)->limit(10); !!}</td>
-                        <td data-toggle="tooltip" data-bs-original-title="{{$task->description}}">{!! Str::of($task->description)->limit(20); !!}</td>
+                        <td class="task-title-color" style="word-wrap: break-word !important; word-break: break-all !important; white-space: normal;">{!! $task->title !!}</td>
                         <td>
                             @if($task->status == 0)
                             <span class="badge bg-warning font-size-11">{{ $status[$task->status] }}</span>

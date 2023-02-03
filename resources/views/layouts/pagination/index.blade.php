@@ -3,7 +3,7 @@
 $link_limit = 5; // maximum number of links (a little bit inaccurate, but will be ok for now)
 ?>
 
-<nav class="nav-pos ml-1 mt-1" aria-label="Page navigation example">
+<nav class="nav-pos ml-1" aria-label="Page navigation example">
 @if ($paginator->lastPage() > 1)
     <ul class="pagination mb-lg-0">
         <li class="page-item {{ ($paginator->currentPage() == 1) ? ' disabled' : '' }}">

@@ -81,7 +81,7 @@ class Task extends Model
 
     public function subtasks()
     {
-        return $this->hasMany(SubTask::class, 'task_id', 'id');
+        return $this->hasMany(SubTask::class, 'task_id', 'id')->orderBy('updated_at', 'desc');
     }
 
     public function creator()

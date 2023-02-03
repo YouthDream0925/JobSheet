@@ -39,12 +39,6 @@
 <div class="row g-3 mb-1 row-deck">
   <div class="col-lg-11 col-md-11 col-sm-11 mt-0">
   </div>
-  <div class="col-lg-1 col-md-1 col-sm-1 mt-0" style="justify-content: right;">
-    <form method="GET" action="{{ route('jobcards.index') }}">
-      {!! Form::select('per_page', $pages, request()->input('per_page'), array('id' => 'per_page', 'class' => 'form-control', 'single', 'onChange' => 'ChangePageNumber()')) !!}
-      <button id="changeBtn" type="submit" class="d-none">{{ __('global.submit') }}</button>
-    </form>
-  </div>
 </div>
 
 <div class="row g-3 mb-1 row-deck">
@@ -102,8 +96,17 @@
   </div>
   @endforeach
   <div>
-  @include('layouts.pagination.index', ['paginator' => $job_cards])
-  <!-- {{ $job_cards->appends(['per_page'=>3])->render();}} -->
+  <div class="paination-container-custom">
+      <form method="GET" action="{{ route('jobcards.index') }}">
+          @if(request()->input('per_page') != null)
+              {!! Form::select('per_page', $pages, request()->input('per_page'), array('id' => 'per_page', 'class' => 'form-control', 'single', 'onChange' => 'ChangePageNumber()')) !!}
+          @else
+              {!! Form::select('per_page', $pages, $per_page, array('id' => 'per_page', 'class' => 'form-control', 'single', 'onChange' => 'ChangePageNumber()')) !!}
+          @endif
+          <button id="changeBtn" type="submit" class="d-none">{{ __('global.submit') }}</button>
+      </form>
+      @include('layouts.pagination.index', ['paginator' => $job_cards])
+  </div>
   </div>
 </div>
 @endsection

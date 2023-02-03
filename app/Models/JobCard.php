@@ -50,7 +50,7 @@ class JobCard extends Model
         if($per_page != null)
             return $query->paginate($per_page)->appends(['per_page' => $per_page]);
         else
-           return $query->paginate(config('pagination.job_card_per_page'))->appends(['per_page' => config('pagination.job_card_per_page')]);
+           return $query->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
     }
 
     public function comments()
@@ -85,7 +85,7 @@ class JobCard extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'job_id', 'id');
+        return $this->hasMany(Task::class, 'job_id', 'id')->orderBy('updated_at', 'desc');
     }
 
     public function simple_tasks()

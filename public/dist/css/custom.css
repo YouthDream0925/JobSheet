@@ -157,7 +157,7 @@ hr {
 }
 
 .font-size-28 {
-    font-size: 28px !important;
+    font-size: 22px !important;
 }
 
 .item-center {
@@ -285,6 +285,12 @@ hr {
 .paination-container-custom {
     display: flex;
     justify-content: end;
+}
+
+.text-wrapper-custom {
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    white-space: normal;
 }
 
 @media screen and (min-width: 768px) {
