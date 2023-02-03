@@ -5,34 +5,22 @@ namespace App\Exports;
 use App\Models\JobCard;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
   
-class JobCardsExport implements FromCollection, WithHeadings
+class JobCardsExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    protected $job_cards = [];
+
+    public function __construct($data)
     {
-        $job_cards = JobCard::select("id", "title", "create_user", "status", "coordinater", "university", "special")->get();
-        foreach($job_cards as $key => $job_card) {
-            $job_card->create_user = $job_card->creator();
-            $job_card->status = config('status')[$job_card->status];
-            if($job_card->coordinater == null)
-                $job_card->coordinater = "NONE";
-            if($job_card->university == null)
-                $job_card->university = "NONE";
-            $job_card->special = config('special')[$job_card->special];
-        }
-        return $job_cards;
+        $this->job_cards = $data;
     }
-  
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function headings(): array
+
+    public function view(): View
     {
-        return ["ID", "Title", "Creator", "Status", "Coordinater", "University", "Special"];
+        return view('excel.component.jobcards_by_user', [
+            'job_cards' => $this->job_cards
+        ]);
     }
 }

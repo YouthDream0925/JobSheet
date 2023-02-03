@@ -86,123 +86,11 @@
         </div>
     </div>
 
-    <h3>{{ $job_card->title }}</h3>
-   
-    @if($field == true)
-    <div class="border-style" style="display: block;">
-        <p>
-            <strong class="fc_filter_label">{{ __('global.coordinater') }}</strong>
-            <span class="fc_filter_label_1">
-                @if($job_card->coordinater != null)
-                    {{ $job_card->coordinater }}
-                @else
-                    NONE
-                @endif
-            </span>
-        </p>
-        <p>
-            <strong class="fc_filter_label">{{ __('global.university') }}</strong>
-            <span class="fc_filter_label_1">
-                @if($job_card->university != null)
-                    {{ $job_card->university }}
-                @else
-                    NONE
-                @endif
-            </span>
-        </p>
-        <p>
-            <strong class="fc_filter_label">{{ __('global.creator') }}</strong>
-            <span class="fc_filter_label_1">
-                @if($job_card->name() != null)
-                    {{ $job_card->name() }}
-                @else
-                    NONE
-                @endif
-            </span>
-        </p>
-        <p>
-            <strong class="fc_filter_label">{{ __('global.status') }}</strong>
-            <span class="fc_filter_label_1">
-                {{ $status[$job_card->status] }}
-            </span>
-        </p>
-    </div>
-    @endif
-
-    @foreach($job_card->comments as $key => $comment)
-        @if($phase != null)
-            @if($phase == $comment->phase)
-            <div style="background-color: rgba(200, 200, 200, 0.8);">
-                @if($comment->title == null)
-                <strong>{{ __('global.title') }}</strong>: NONE
-                @else
-                <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
-                @endif
-                <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
-            </div>
-            <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
-                <div class="card-body">
-                    {!! $comment->content !!}
-                </div>
-            </div>
-            @endif
-        @else
-        <div style="background-color: rgba(200, 200, 200, 0.8);">
-            @if($comment->title == null)
-            <strong>{{ __('global.title') }}</strong>: NONE
-            @else
-            <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
-            @endif
-            <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
-        </div>
-        <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
-            <div class="card-body">
-                {!! $comment->content !!}
-            </div>
-        </div>
-        @endif
-    @endforeach
-
-    @if($question == true)
-        @if($job_card->question_description != null)
-        <div class="collapse show card mb-2" style="background-color: #d3eafd;">
-            <div class="card-body">
-                {!! $job_card->question_description->content !!}
-            </div>
-        </div>
-        @endif
-        @foreach($job_card->questions as $key => $question)
-        <div class="question-container" style="margin-bottom: 0.625rem;">
-            <div class="item1">{!! $question->content !!}</div>
-            <div class="item2">
-                @if($question->type == 0)
-                    @foreach($question->answers as $key => $answer)
-                        @if($answer->correct == 1)
-                            {{ $answer->answer }}
-                        @endif
-                    @endforeach
-                @else
-                    @foreach($question->answers as $key => $answer)
-                        {{ $answer->answer }},
-                    @endforeach
-                @endif
-            </div>
-        </div>
-        @endforeach
-    @endif
-
-    @foreach($job_card->descriptions as $key => $description)
-    <div class="collapse show card mb-2">
-        <div class="card-body">
-            {!! $description->content !!}
-        </div>
-    </div>
-    @endforeach
-
-    @foreach($job_card->tasks as $key => $task)
+    <h5 class="mt-1">{{ $user->firstname }} {{ $user->lastname }}</h5>
+    
+    @foreach($tasks as $task)
         <h5 class="mt-1">{{ $task->title }}</h5>
-        
-        @if($field == true)
+
         <div class="border-style" style="display: block;">
             <p>
                 <strong class="fc_filter_label">{{ __('global.coordinater') }}</strong>
@@ -241,26 +129,8 @@
                 </span>
             </p>
         </div>
-        @endif
 
         @foreach($task->comments as $key => $comment)
-            @if($phase != null)
-                @if($phase == $comment->phase)
-                <div style="background-color: rgba(200, 200, 200, 0.8);">
-                    @if($comment->title == null)
-                    <strong>{{ __('global.title') }}</strong>: NONE
-                    @else
-                    <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
-                    @endif
-                    <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
-                </div>
-                <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
-                    <div class="card-body">
-                        {!! $comment->content !!}
-                    </div>
-                </div>
-                @endif
-            @else
             <div style="background-color: rgba(200, 200, 200, 0.8);">
                 @if($comment->title == null)
                 <strong>{{ __('global.title') }}</strong>: NONE
@@ -274,7 +144,6 @@
                     {!! $comment->content !!}
                 </div>
             </div>
-            @endif
         @endforeach
 
         @foreach($task->descriptions as $key => $description)
@@ -288,7 +157,6 @@
         @foreach($task->subtasks as $key => $sub_task)
             <h5 class="mt-1">{{ $sub_task->title }}</h5>
             
-            @if($field == true)
             <div class="border-style" style="display: block;">
                 <p>
                     <strong class="fc_filter_label">{{ __('global.coordinater') }}</strong>
@@ -327,26 +195,8 @@
                     </span>
                 </p>
             </div>
-            @endif
 
             @foreach($sub_task->comments as $key => $comment)
-                @if($phase != null)
-                    @if($phase == $comment->phase)
-                    <div style="background-color: rgba(200, 200, 200, 0.8);">
-                        @if($comment->title == null)
-                        <strong>{{ __('global.title') }}</strong>: NONE
-                        @else
-                        <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
-                        @endif
-                        <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
-                    </div>
-                    <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
-                        <div class="card-body">
-                            {!! $comment->content !!}
-                        </div>
-                    </div>
-                    @endif
-                @else
                 <div style="background-color: rgba(200, 200, 200, 0.8);">
                     @if($comment->title == null)
                     <strong>{{ __('global.title') }}</strong>: NONE
@@ -360,7 +210,6 @@
                         {!! $comment->content !!}
                     </div>
                 </div>
-                @endif
             @endforeach
 
             @foreach($sub_task->descriptions as $key => $description)
@@ -371,20 +220,7 @@
             </div>
             @endforeach
         @endforeach
-    @endforeach
-
-    <!-- <table class="table">
-        <thead>
-            <tr class="table-primary">
-                <td>Product Name</td>
-                <td>Price</td>
-                <td>In Stock</td>
-            </tr>
-        </thead>
-        <tbody>
-        
-        </tbody>
-    </table> -->
+    @endforeach    
 </body>
 
 </html>

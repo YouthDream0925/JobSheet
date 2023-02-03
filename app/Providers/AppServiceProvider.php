@@ -86,7 +86,17 @@ class AppServiceProvider extends ServiceProvider
             '5' => 'Semester 6',
         ];
 
-        View::share(['status' => $status, 'phase' => $phase, 'global_phase' => $global_phase, 'notification_allow' => $notification_allow, 'special' => $special, 'pages' => $pages, 'per_page' => $per_page]);
+        $global_phase_to_show = [
+            '' =>  'NONE',
+            '0' => 'Semester 1',
+            '1' => 'Semester 2',
+            '2' => 'Semester 3',
+            '3' => 'Semester 4',
+            '4' => 'Semester 5',
+            '5' => 'Semester 6',
+        ];
+
+        View::share(['status' => $status, 'phase' => $phase, 'global_phase' => $global_phase, 'notification_allow' => $notification_allow, 'special' => $special, 'pages' => $pages, 'per_page' => $per_page, 'global_phase_to_show' => $global_phase_to_show]);
 
         /********* URL Global Variable **********/
         \Blade::directive('svg', function($arguments) {

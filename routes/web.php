@@ -117,12 +117,14 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('notification', [SettingController::class, 'index']);
 
     Route::get('export/wps', [ExportController::class, 'wps'])->name('export.wps');
-    Route::get('export/wps/special/{id}', [ExportController::class, 'wps_special'])->name('expoert.wps.special');
     Route::post('export/wps/excute', [ExportController::class, 'wps_excute'])->name('export.wps.excute');
+    Route::post('export/wps/user', [ExportController::class, 'wps_excute_by_user'])->name('export.wps.user');
     Route::get('export/tasks', [ExportController::class, 'tasks'])->name('export.tasks');
     Route::post('export/tasks/excute', [ExportController::class, 'tasks_excute'])->name('export.tasks.excute');
+    Route::post('export/tasks/user', [ExportController::class, 'tasks_excute_by_user'])->name('export.tasks.user');
     Route::get('export/subtasks', [ExportController::class, 'subTasks'])->name('export.subtasks');
     Route::post('export/subtasks/excute', [ExportController::class, 'subtasks_excute'])->name('export.subtasks.excute');
+    Route::post('export/subtasks/user', [ExportController::class, 'subtasks_excute_by_user'])->name('export.subtasks.user');
 });
 
 Route::get('storage/avatar/{filename}', function ($filename)

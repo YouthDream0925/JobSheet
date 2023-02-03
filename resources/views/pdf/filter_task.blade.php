@@ -138,12 +138,7 @@
                 @else
                 <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
                 @endif
-                
-                @if($comment->phase == null)
-                <strong>{{ __('global.phase') }}</strong>: NONE
-                @else
-                <strong>{{ __('global.phase') }}</strong>: {{ $global_phase[$comment->phase] }}
-                @endif
+                <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
             </div>
             <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
                 <div class="card-body">
@@ -158,12 +153,7 @@
             @else
             <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
             @endif
-            
-            @if($comment->phase == null)
-            <strong>{{ __('global.phase') }}</strong>: NONE
-            @else
-            <strong>{{ __('global.phase') }}</strong>: {{ $global_phase[$comment->phase] }}
-            @endif
+            <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
         </div>
         <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
             <div class="card-body">
@@ -234,12 +224,7 @@
                     @else
                     <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
                     @endif
-                    
-                    @if($comment->phase == null)
-                    <strong>{{ __('global.phase') }}</strong>: NONE
-                    @else
-                    <strong>{{ __('global.phase') }}</strong>: {{ $global_phase[$comment->phase] }}
-                    @endif
+                    <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
                 </div>
                 <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
                     <div class="card-body">
@@ -254,12 +239,7 @@
                 @else
                 <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
                 @endif
-                
-                @if($comment->phase == null)
-                <strong>{{ __('global.phase') }}</strong>: NONE
-                @else
-                <strong>{{ __('global.phase') }}</strong>: {{ $global_phase[$comment->phase] }}
-                @endif
+                <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
             </div>
             <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
                 <div class="card-body">

@@ -9,8 +9,11 @@ use App\Models\Task;
 use App\Models\SubTask;
 use App\Models\User;
 use App\Exports\JobCardExport;
+use App\Exports\JobCardsExport;
 use App\Exports\TaskExport;
+use App\Exports\TasksExport;
 use App\Exports\SubTaskExport;
+use App\Exports\SubTasksExport;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
@@ -18,7 +21,7 @@ class ExportController extends Controller
 {
     public function wps()
     {
-        $job_cards = JobCard::pluck('title', 'id')->all();
+        $job_cards = JobCard::orderBy('updated_at', 'desc')->pluck('title', 'id')->all();
         $users = User::pluck('email', 'id')->all();
         return view('exports.wps', compact('job_cards', 'users'));
     }
@@ -48,6 +51,42 @@ class ExportController extends Controller
         }
     }
 
+    public function wps_excute_by_user(Request $request)
+    {
+        $user_id = $request->user_id;
+        $user_export_type = $request->user_export_type;
+        $user = User::find($user_id);
+
+        $user_jobs = [];
+        $job_cards = JobCard::orderBy('updated_at', 'desc')->get();
+        foreach($job_cards as $job_card) {
+            $wp_assign_check = false;
+            foreach($job_card->assign() as $assign_user) {
+                if($assign_user == $user->email)
+                    $wp_assign_check = true;
+            }
+            if($wp_assign_check == true)
+                array_push($user_jobs, $job_card);
+        }
+
+        $data = [
+            'job_cards' => $user_jobs,
+            'user' => $user
+        ];
+
+        if(count($user_jobs) == 0)
+            return redirect()->back()->with('error', 'There is no WP assigned to '. $user->firstname . ' ' . $user->lastname);
+
+        if($user_export_type == "pdf") {
+            $pdf = PDF::loadView('pdf.filter_job_by_user', $data);
+            return $pdf->download($user->firstname.' '.$user->lastname.'.pdf');
+        } else if($user_export_type == "excel") {
+            // return Excel::download(new JobCardsExport($user_jobs), $user->firstname.'.xlsx');
+            // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
+            return Excel::download(new JobCardsExport($user_jobs), $user->firstname.'.xlsx');
+        }
+    }
+
     public function wps_special($id)
     {
         $job_card = JobCard::find($id);
@@ -64,7 +103,7 @@ class ExportController extends Controller
 
     public function tasks()
     {
-        $tasks = Task::pluck('title', 'id')->all();
+        $tasks = Task::orderBy('updated_at', 'desc')->pluck('title', 'id')->all();
         $users = User::pluck('email', 'id')->all();
         return view('exports.tasks', compact('tasks', 'users'));
     }
@@ -89,6 +128,41 @@ class ExportController extends Controller
             // return view('pdf.filter_job', compact('job_card', 'field', 'question', 'phase'));
         } else if($export_type == "excel") {
             return Excel::download(new TaskExport($task->id), $task->title.'.xlsx');
+        }
+    }
+
+    public function tasks_excute_by_user(Request $request)
+    {
+        $user_id = $request->user_id;
+        $user_export_type = $request->user_export_type;
+        $user = User::find($user_id);
+
+        $user_tasks = [];
+        $tasks = Task::orderBy('updated_at', 'desc')->get();
+        foreach($tasks as $task) {
+            $task_assign_check = false;
+            foreach($task->assign() as $assign_user) {
+                if($assign_user == $user->email)
+                    $task_assign_check = true;
+            }
+            if($task_assign_check == true)
+                array_push($user_tasks, $task);
+        }
+
+        $data = [
+            'tasks' => $user_tasks,
+            'user' => $user
+        ];
+
+        if(count($user_tasks) == 0)
+            return redirect()->back()->with('error', 'There is no Task assigned to '. $user->firstname . ' ' . $user->lastname);
+
+        if($user_export_type == "pdf") {
+            $pdf = PDF::loadView('pdf.filter_task_by_user', $data);
+            return $pdf->download($user->firstname.' '.$user->lastname.'.pdf');
+        } else if($user_export_type == "excel") {
+            // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
+            return Excel::download(new TasksExport($user_tasks), $user->firstname.' '.$user->lastname.'.xlsx');
         }
     }
 
@@ -119,6 +193,41 @@ class ExportController extends Controller
             // return view('pdf.filter_job', compact('job_card', 'field', 'question', 'phase'));
         } else if($export_type == "excel") {
             return Excel::download(new TaskExport($sub_task->id), $sub_task->title.'.xlsx');
+        }
+    }
+
+    public function subtasks_excute_by_user(Request $request)
+    {
+        $user_id = $request->user_id;
+        $user_export_type = $request->user_export_type;
+        $user = User::find($user_id);
+
+        $user_sub_tasks = [];
+        $sub_tasks = SubTask::orderBy('updated_at', 'desc')->get();
+        foreach($sub_tasks as $sub_task) {
+            $sub_task_assign_check = false;
+            foreach($sub_task->assign() as $assign_user) {
+                if($assign_user == $user->email)
+                    $sub_task_assign_check = true;
+            }
+            if($sub_task_assign_check == true)
+                array_push($user_sub_tasks, $sub_task);
+        }
+
+        $data = [
+            'sub_tasks' => $user_sub_tasks,
+            'user' => $user
+        ];
+
+        if(count($user_sub_tasks) == 0)
+            return redirect()->back()->with('error', 'There is no SubTask assigned to '. $user->firstname . ' ' . $user->lastname);
+
+        if($user_export_type == "pdf") {
+            $pdf = PDF::loadView('pdf.filter_sub_by_user', $data);
+            return $pdf->download($user->firstname.' '.$user->lastname.'.pdf');
+        } else if($user_export_type == "excel") {
+            // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
+            return Excel::download(new SubTasksExport($user_sub_tasks), $user->firstname.' '.$user->lastname.'.xlsx');
         }
     }
 }

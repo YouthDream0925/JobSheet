@@ -86,52 +86,51 @@
         </div>
     </div>
 
-    <h5 class="mt-1">{{ $sub_task->title }}</h5>
+    <h5 class="mt-1">{{ $user->firstname }} {{ $user->lastname }}</h5>
     
-    @if($field == true)
-    <div class="border-style" style="display: block;">
-        <p>
-            <strong class="fc_filter_label">{{ __('global.coordinater') }}</strong>
-            <span class="fc_filter_label_1">
-                @if($sub_task->coordinater != null)
-                    {{ $sub_task->coordinater }}
-                @else
-                    NONE
-                @endif
-            </span>
-        </p>
-        <p>
-            <strong class="fc_filter_label">{{ __('global.university') }}</strong>
-            <span class="fc_filter_label_1">
-                @if($sub_task->university != null)
-                    {{ $sub_task->university }}
-                @else
-                    NONE
-                @endif
-            </span>
-        </p>
-        <p>
-            <strong class="fc_filter_label">{{ __('global.creator') }}</strong>
-            <span class="fc_filter_label_1">
-                @if($sub_task->name() != null)
-                    {{ $sub_task->name() }}
-                @else
-                    NONE
-                @endif
-            </span>
-        </p>
-        <p>
-            <strong class="fc_filter_label">{{ __('global.status') }}</strong>
-            <span class="fc_filter_label_1">
-                {{ $status[$sub_task->status] }}
-            </span>
-        </p>
-    </div>
-    @endif
+    @foreach($sub_tasks as $sub_task)
+        <h5 class="mt-1">{{ $sub_task->title }}</h5>
 
-    @foreach($sub_task->comments as $key => $comment)
-        @if($phase != null)
-            @if($phase == $comment->phase)
+        <div class="border-style" style="display: block;">
+            <p>
+                <strong class="fc_filter_label">{{ __('global.coordinater') }}</strong>
+                <span class="fc_filter_label_1">
+                    @if($sub_task->coordinater != null)
+                        {{ $sub_task->coordinater }}
+                    @else
+                        NONE
+                    @endif
+                </span>
+            </p>
+            <p>
+                <strong class="fc_filter_label">{{ __('global.university') }}</strong>
+                <span class="fc_filter_label_1">
+                    @if($sub_task->university != null)
+                        {{ $sub_task->university }}
+                    @else
+                        NONE
+                    @endif
+                </span>
+            </p>
+            <p>
+                <strong class="fc_filter_label">{{ __('global.creator') }}</strong>
+                <span class="fc_filter_label_1">
+                    @if($sub_task->name() != null)
+                        {{ $sub_task->name() }}
+                    @else
+                        NONE
+                    @endif
+                </span>
+            </p>
+            <p>
+                <strong class="fc_filter_label">{{ __('global.status') }}</strong>
+                <span class="fc_filter_label_1">
+                    {{ $status[$sub_task->status] }}
+                </span>
+            </p>
+        </div>
+
+        @foreach($sub_task->comments as $key => $comment)
             <div style="background-color: rgba(200, 200, 200, 0.8);">
                 @if($comment->title == null)
                 <strong>{{ __('global.title') }}</strong>: NONE
@@ -145,30 +144,15 @@
                     {!! $comment->content !!}
                 </div>
             </div>
-            @endif
-        @else
-        <div style="background-color: rgba(200, 200, 200, 0.8);">
-            @if($comment->title == null)
-            <strong>{{ __('global.title') }}</strong>: NONE
-            @else
-            <strong>{{ __('global.title') }}</strong>: {{ $comment->title }}
-            @endif
-            <strong>{{ __('global.phase') }}</strong>: {{ $global_phase_to_show[$comment->phase] }}
-        </div>
-        <div class="collapse show card mb-2 @if($comment->phase) comment-style-{{$comment->phase}} @else comment-style @endif">
+        @endforeach
+
+        @foreach($sub_task->descriptions as $key => $description)
+        <div class="collapse show card mb-2">
             <div class="card-body">
-                {!! $comment->content !!}
+                {!! $description->content !!}
             </div>
         </div>
-        @endif
-    @endforeach
-
-    @foreach($sub_task->descriptions as $key => $description)
-    <div class="collapse show card mb-2">
-        <div class="card-body">
-            {!! $description->content !!}
-        </div>
-    </div>
+        @endforeach
     @endforeach
 </body>
 
