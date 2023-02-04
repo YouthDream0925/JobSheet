@@ -13,6 +13,7 @@ return [
 
     /***** global *****/
     'order' => 'Order',
+    'enterOrderNum' => 'Enter Order number',
     'exportQuestionAndMore' => 'Export only Question and More Info',
     'guide' => 'Guide',
     'addDescription' => 'Add Description',

@@ -25,6 +25,7 @@ class SubTask extends Model
         'status',
         'coordinater',
         'university',
+        'order'
     ];
 
     public function scopePopular($query)
@@ -35,7 +36,7 @@ class SubTask extends Model
         {
             $query->where('assign_users', 'like', '%,' .Auth::user()->id. ',%');
         }
-        return $query->get();
+        return $query->orderBy('order', 'asc')->get();
     }
 
     public function scopeSearch($query, $assigned, $status, $title)

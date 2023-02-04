@@ -48,7 +48,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <strong>{{ __('global.order') }}:</strong>
+                    {!! Form::text('order', null, array('placeholder' => __('global.enterOrderNum'),'class' => 'form-control')) !!}
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6">
                     <strong>{{ __('global.special') }}:</strong>
                     <div class="form-check form-switch">
                         <input name="special" class="form-check-input" type="checkbox" role="switch" value="true">

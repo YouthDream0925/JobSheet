@@ -92,7 +92,7 @@ class JobCardController extends Controller
     {
         $job_card = JobCard::find($id);
         $comments = Comment::where('type', 'job')->where('type_id', $id)->get();
-        $tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->get();
+        $tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->get();
 
         $users = User::pluck('email','id')->all();
         $assign_users = [];
@@ -138,9 +138,9 @@ class JobCardController extends Controller
 
         if(!empty(Auth::user()->getRoleNames()) && Auth::user()->hasExactRoles('SuperAdmin') || Auth::user()->hasExactRoles('Admin')) {
             if($request->per_page != null)
-                $tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->paginate($request->per_page)->appends(['per_page' => $request->per_page]);
+                $tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->paginate($request->per_page)->appends(['per_page' => $request->per_page]);
             else
-                $tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
+                $tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
                 
             if($job_card->special == 1)
                 return view('jobcards.edit-special',compact('job_card', 'list_users', 'assign_users'));
@@ -150,11 +150,11 @@ class JobCardController extends Controller
         }            
         elseif(!empty(Auth::user()->getRoleNames()) && Auth::user()->hasExactRoles('Supervisor')) {
             if($request->assigned != null || $request->status != null || $request->title != null) {
-                $tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->Search($request->assigned, $request->status, $request->title);
-                $full_tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->get();
+                $tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->Search($request->assigned, $request->status, $request->title);
+                $full_tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->get();
                 $subTasks = [];
                 foreach($full_tasks as $key => $task) {
-                    $data = SubTask::orderBy('updated_at', 'desc')->where('task_id', $task->id)->Search($request->assigned, $request->status, $request->title);
+                    $data = SubTask::orderBy('order', 'asc')->where('task_id', $task->id)->Search($request->assigned, $request->status, $request->title);
                     if(count($data) != 0) {
                         foreach($data as $key => $value)
                             array_push($subTasks, $value);
@@ -162,10 +162,10 @@ class JobCardController extends Controller
                 }
             }
             else {
-                $tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->get();
+                $tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->get();
                 $subTasks = [];
                 foreach($tasks as $key => $task) {
-                    $data = SubTask::orderBy('updated_at', 'desc')->where('task_id', $task->id)->get();
+                    $data = SubTask::orderBy('order', 'asc')->where('task_id', $task->id)->get();
                     if(count($data) != 0) {
                         foreach($data as $key => $value)
                             array_push($subTasks, $value);
@@ -279,11 +279,11 @@ class JobCardController extends Controller
      */
     public function destroy($id)
     {
-        $tasks = Task::orderBy('updated_at', 'desc')->where('job_id', $id)->get();
+        $tasks = Task::orderBy('order', 'asc')->where('job_id', $id)->get();
         foreach($tasks as $key => $task)
         {
             $task_id = $task->id;
-            $subtasks = SubTask::orderBy('updated_at', 'desc')->where('task_id', $task_id)->get();
+            $subtasks = SubTask::orderBy('order', 'asc')->where('task_id', $task_id)->get();
             foreach($subtasks as $key => $sub_task)
                 $sub_task->delete();
 

@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-6">
                     <div class="form-group">
                         <strong>{{ __('global.status') }}:</strong>
                         @if($flag == true)
@@ -93,6 +93,11 @@
                             {!! Form::select('status', $status, $job_card->status, array('disabled' => true, 'class' => 'form-control','single')) !!}
                         @endif
                     </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <strong>{{ __('global.order') }}:</strong>
+                    {!! Form::text('order', null, array('placeholder' => __('global.enterOrderNum'),'class' => 'form-control')) !!}
                 </div>
 
                 <div class="col-lg-6 col-md-6 col-sm-12">

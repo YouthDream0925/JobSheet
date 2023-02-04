@@ -78,7 +78,7 @@ class TaskController extends Controller
     {
         $task = Task::find($id);
         $comments = Comment::where('type', 'task')->where('type_id', $id)->get();
-        $sub_tasks = SubTask::orderBy('updated_at', 'desc')->where('task_id', $id)->get();
+        $sub_tasks = SubTask::orderBy('order', 'asc')->where('task_id', $id)->get();
 
         $users = User::pluck('email','id')->all();
         $assign_users = [];
@@ -113,15 +113,15 @@ class TaskController extends Controller
 
         if(!empty(Auth::user()->getRoleNames()) && Auth::user()->hasExactRoles('SuperAdmin') || Auth::user()->hasExactRoles('Admin')) {
             if($request->per_page != null)
-                $sub_tasks = SubTask::orderBy('updated_at', 'desc')->where('task_id', $id)->paginate($request->per_page)->appends(['per_page' => $request->per_page]);
+                $sub_tasks = SubTask::orderBy('order', 'asc')->where('task_id', $id)->paginate($request->per_page)->appends(['per_page' => $request->per_page]);
             else
-                $sub_tasks = SubTask::orderBy('updated_at', 'desc')->where('task_id', $id)->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
+                $sub_tasks = SubTask::orderBy('order', 'asc')->where('task_id', $id)->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
 
             return view('tasks.edit',compact('task', 'sub_tasks', 'users', 'assign_users', 'comments'))
                 ->with('i', ($request->input('page', 1) - 1) * $request->per_page);
         }   
         else {
-            $sub_tasks = SubTask::orderBy('updated_at', 'desc')->where('task_id', $id)->popular();
+            $sub_tasks = SubTask::orderBy('order', 'asc')->where('task_id', $id)->popular();
             return view('tasks.edit-simple',compact('task', 'sub_tasks', 'users', 'assign_users', 'comments'))
                 ->with('i', ($request->input('page', 1) - 1) * $request->per_page);
         }
@@ -220,7 +220,7 @@ class TaskController extends Controller
     {
         $job_id = Task::find($id)->job_id;
 
-        $subtasks = SubTask::orderBy('updated_at', 'desc')->where('task_id', $id)->get();
+        $subtasks = SubTask::orderBy('order', 'asc')->where('task_id', $id)->get();
         foreach($subtasks as $key => $sub_task)
             $sub_task->delete();
 

@@ -55,6 +55,10 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12">
+                    <strong>{{ __('global.order') }}:</strong>
+                    {!! Form::text('order', null, array('placeholder' => __('global.enterOrderNum'),'class' => 'form-control')) !!}
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="form-group">
                         <strong>{{ __('global.assignUsers') }}:</strong>
                         {!! Form::select('assign_users[]', $users,[], array('class' => 'form-control','multiple')) !!}

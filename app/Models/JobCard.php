@@ -26,7 +26,8 @@ class JobCard extends Model
         'status',
         'coordinater',
         'university',
-        'special'
+        'special',
+        'order'
     ];
 
     public function scopePopular($query, $per_page)
@@ -48,9 +49,9 @@ class JobCard extends Model
         }
         
         if($per_page != null)
-            return $query->orderBy('updated_at', 'desc')->paginate($per_page)->appends(['per_page' => $per_page]);
+            return $query->orderBy('order', 'asc')->paginate($per_page)->appends(['per_page' => $per_page]);
         else
-           return $query->orderBy('updated_at', 'desc')->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
+           return $query->orderBy('order', 'asc')->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
     }
 
     public function comments()
@@ -85,7 +86,7 @@ class JobCard extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'job_id', 'id')->orderBy('updated_at', 'desc');
+        return $this->hasMany(Task::class, 'job_id', 'id')->orderBy('order', 'asc');
     }
 
     public function simple_tasks()
