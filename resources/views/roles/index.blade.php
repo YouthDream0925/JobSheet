@@ -45,7 +45,7 @@
                                 </svg>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 p-2">
-                                    <a href="{{ route('roles.show',$role->id) }}" class="dropdown-item"><i class="me-3 fa fa-eye"></i>__('global.show')</a>
+                                    <a href="{{ route('roles.show',$role->id) }}" class="dropdown-item"><i class="me-3 fa fa-eye"></i>{{ __('global.show') }}</a>
                                 </div>
                                 @else
                                 <a href="#" class="dropdown-toggle after-none text-primary f-right" data-bs-toggle="dropdown" aria-expanded="false" title="More Action">

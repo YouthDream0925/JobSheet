@@ -51,7 +51,7 @@
             </ul>
             @if(!empty(Auth::user()->getRoleNames()) && Auth::user()->hasExactRoles('Supervisor'))
             <div>
-                <a href="{{ route('expoert.wps.special', $job_card->id) }}" class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.exportQuestionAndMore') }}</span></a>
+                <a href="{{ route('export.wps.special', $job_card->id) }}" class="btn btn-outline-success"><i class="fa fa-file-pdf-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.exportQuestionAndMore') }}</span></a>
             </div>
             @endif
         </div>

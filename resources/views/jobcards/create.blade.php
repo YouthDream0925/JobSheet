@@ -30,7 +30,7 @@
         <div class="card-body">
             @if (count($errors) > 0)
             <div class="alert alert-danger">
-                <strong>{{ __('global.wow') }}</strong> {{ __('global.inpurtError') }}<br><br>
+                <strong>{{ __('global.wow') }}</strong> {{ __('global.inputError') }}<br><br>
                 <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

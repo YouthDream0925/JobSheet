@@ -154,7 +154,7 @@
                 <tbody>
                     @foreach ($tasks as $key => $task)
                     <tr>
-                        <td>{{ ++$i }}</td>
+                        <td>{{ $task->order }}</td>
                         <td class="task-title-color" style="word-wrap: break-word !important; word-break: break-all !important; white-space: normal;">{!! $task->title !!}</td>
                         <td>
                             @if($task->status == 0)

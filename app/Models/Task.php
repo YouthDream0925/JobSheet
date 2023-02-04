@@ -42,7 +42,7 @@ class Task extends Model
                 ->orWhere('assign_users', 'like', '%,' .Auth::user()->id. ',%');
         }
 
-        return $query->orderBy('order', 'asc')->get();
+        return $query->orderBy('order', 'asc')->orderBy('updated_at', 'desc')->get();
     }
 
     public function scopeSearch($query, $assigned, $status, $title)
@@ -82,7 +82,7 @@ class Task extends Model
 
     public function subtasks()
     {
-        return $this->hasMany(SubTask::class, 'task_id', 'id')->orderBy('order', 'asc');
+        return $this->hasMany(SubTask::class, 'task_id', 'id')->orderBy('order', 'asc')->orderBy('updated_at', 'desc');
     }
 
     public function creator()

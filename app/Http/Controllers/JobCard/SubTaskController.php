@@ -48,6 +48,7 @@ class SubTaskController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'assign_users' => 'required',
+            'order' => 'required|numeric|min:1'
         ]);
 
         $input = $request->all();
@@ -132,6 +133,7 @@ class SubTaskController extends Controller
                 'title' => 'required',
                 'status' => 'required',
                 'assign_users' => 'required',
+                'order' => 'required|numeric|min:1'
             ]);
     
             $input = $request->all();

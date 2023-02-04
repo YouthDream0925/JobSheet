@@ -22,6 +22,7 @@ return [
     'unexpectedError' => 'Unexpected error occured.',
     'dataFormatError' => 'Data format is not correct.',
     'import' => 'Import',
+    'inputError' => 'Please check input value.',
     'export_pdf' => 'PDF',
     'export_xls' => 'Excel',
     'dataEntrySuccess' => 'Data entry was successful.',

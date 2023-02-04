@@ -36,7 +36,7 @@ class SubTask extends Model
         {
             $query->where('assign_users', 'like', '%,' .Auth::user()->id. ',%');
         }
-        return $query->orderBy('order', 'asc')->get();
+        return $query->orderBy('order', 'asc')->orderBy('updated_at', 'desc')->get();
     }
 
     public function scopeSearch($query, $assigned, $status, $title)

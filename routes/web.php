@@ -117,6 +117,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('notification', [SettingController::class, 'index']);
 
     Route::get('export/wps', [ExportController::class, 'wps'])->name('export.wps');
+    Route::get('export/wps/special/{id}', [ExportController::class, 'wps_special'])->name('export.wps.special');
     Route::post('export/wps/excute', [ExportController::class, 'wps_excute'])->name('export.wps.excute');
     Route::post('export/wps/user', [ExportController::class, 'wps_excute_by_user'])->name('export.wps.user');
     Route::get('export/tasks', [ExportController::class, 'tasks'])->name('export.tasks');

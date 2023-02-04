@@ -49,9 +49,9 @@ class JobCard extends Model
         }
         
         if($per_page != null)
-            return $query->orderBy('order', 'asc')->paginate($per_page)->appends(['per_page' => $per_page]);
+            return $query->orderBy('order', 'asc')->orderBy('updated_at', 'desc')->paginate($per_page)->appends(['per_page' => $per_page]);
         else
-           return $query->orderBy('order', 'asc')->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
+           return $query->orderBy('order', 'asc')->orderBy('updated_at', 'desc')->paginate(config('pagination.per_page'))->appends(['per_page' => config('pagination.per_page')]);
     }
 
     public function comments()
@@ -71,7 +71,7 @@ class JobCard extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'job_id', 'id')->orderBy('order', 'asc');
+        return $this->hasMany(Question::class, 'job_id', 'id')->orderBy('order', 'asc')->orderBy('updated_at', 'desc');
     }
 
     public function multiquestions()
@@ -86,7 +86,7 @@ class JobCard extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Task::class, 'job_id', 'id')->orderBy('order', 'asc');
+        return $this->hasMany(Task::class, 'job_id', 'id')->orderBy('order', 'asc')->orderBy('updated_at', 'desc');
     }
 
     public function simple_tasks()
