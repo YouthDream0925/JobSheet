@@ -855,7 +855,10 @@
 
     let title = null, current_order = null, new_order = null, obj_key = null;
 
-    $('.btn-order-change').on('click', function() {
+    $('.btn-order-change').css('cursor','pointer');
+    $('#order_change_save').css('cursor','pointer');
+    $(document).on('click', '.btn-order-change',  function(event) {
+        event.preventDefault();
         $('#modal_btn').trigger('click');
         title = $(this).attr('data-taskTitle');
         current_order = $(this).attr('data-taskOrder');
