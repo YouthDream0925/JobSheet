@@ -160,7 +160,7 @@
                 <tbody>
                     @foreach ($sub_tasks as $key => $sub_task)
                     <tr>
-                        <td>{{ $sub_task->order }}</td>
+                        <td id="order_id{{$sub_task->id}}">{{ $sub_task->order }}</td>
                         <td class="sub-title-color" style="word-wrap: break-word !important; word-break: break-all !important; white-space: normal;">{!! $sub_task->title !!}</td>
                         <td>
                             @if($sub_task->status == 0)
@@ -188,6 +188,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 p-2">
                                 <a href="{{ route('subtasks.edit',$sub_task->id) }}" class="dropdown-item"><i class="me-3 fa fa-pencil"></i>{{ __('global.edit') }}</a>
+                                <button class="dropdown-item btn-order-change" data-taskKey="{{ $sub_task->id }}" data-taskOrder="{{ $sub_task->order }}" data-taskTitle="{{ $sub_task->title }}"><i class="me-3 fa fa-sort"></i>{{ __('global.order') }}</button>
                                 <a href="{{ route('subtasks.duplicate', $sub_task->id) }}" class="dropdown-item"><i class="me-3 fa fa-copy"></i>{{ __('global.duplicate') }}</a>
                                 @if(!empty(Auth::user()->getRoleNames()) && Auth::user()->hasExactRoles('SuperAdmin') || Auth::user()->hasExactRoles('Admin'))
                                 <div class="dropdown-divider"></div>
@@ -414,6 +415,27 @@
             </button>
             @endif
         @endif
+    </div>
+</div>
+
+<button id="modal_btn" type="button" class="btn btn-secondary d-none" data-bs-toggle="modal" data-bs-target="#exampleModalLive"></button>
+<!--[ Modal ]-->
+<div class="modal fade" id="exampleModalLive" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_title">{{ __('global.title') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex-center" id="modal_body">
+                <p class="mb-0 mr-1">{{ __('global.order') }}</p>
+                <input id="current_order_number" placeholder="Enter Order number" class="form-control" name="order" type="text" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('global.cancel') }}</button>
+                <button id="order_change_save" type="button" class="btn btn-primary">{{ __('global.save') }}</button>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -834,6 +856,70 @@
       paging: false,
       ordering: false,
       info: false,
+    });
+
+    let title = null, current_order = null, new_order = null, obj_key = null;
+
+    $('.btn-order-change').on('click', function() {
+        $('#modal_btn').trigger('click');
+        title = $(this).attr('data-taskTitle');
+        current_order = $(this).attr('data-taskOrder');
+        obj_key = $(this).attr('data-taskKey');
+
+        $('#modal_title').html(title);
+        $('#current_order_number').val(current_order);
+    });
+
+    $('#order_change_save').on('click', function() {
+        new_order = $('#current_order_number').val();
+
+        if(title == null || current_order == null || obj_key == null) {
+            new bs5.Toast({
+                body: lang.unexpectedError,
+                className: 'border-0 bg-danger text-white',
+                btnCloseWhite: true,
+            }).show();
+            return;
+        } else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('order.change') }}",
+                data: {
+                    'type' : 'sub_task',
+                    'key' : obj_key,
+                    'new_order' : new_order
+                },
+                success: function(res) {
+                    if(res['success'] == true) {
+                        $('#order_id' + obj_key).html(new_order);
+                        new bs5.Toast({
+                            body: res['msg'],
+                            className: 'border-0 bg-success text-white',
+                            btnCloseWhite: true,
+                        }).show();
+                    } else {
+                        new bs5.Toast({
+                            body: res['msg'],
+                            className: 'border-0 bg-danger text-white',
+                            btnCloseWhite: true,
+                        }).show();
+                    }
+                },
+                error: function() {
+                    new bs5.Toast({
+                        body: lang.unexpectedError,
+                        className: 'border-0 bg-danger text-white',
+                        btnCloseWhite: true,
+                    }).show();
+                }
+            });
+        }
     });
 </script>
 @endpush

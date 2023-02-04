@@ -126,6 +126,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('export/subtasks', [ExportController::class, 'subTasks'])->name('export.subtasks');
     Route::post('export/subtasks/excute', [ExportController::class, 'subtasks_excute'])->name('export.subtasks.excute');
     Route::post('export/subtasks/user', [ExportController::class, 'subtasks_excute_by_user'])->name('export.subtasks.user');
+
+    Route::post('order', [JobCardController::class, 'order'])->name('order.change');
 });
 
 Route::get('storage/avatar/{filename}', function ($filename)

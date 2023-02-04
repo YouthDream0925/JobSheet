@@ -713,4 +713,35 @@ class JobCardController extends Controller
             return back()->with('error', $message);
         }
     }
+
+    public function order(Request $request)
+    {
+        $result = [];
+        $type = $request->type;
+        $id = $request->key;
+        $new_order = $request->new_order;
+        if($new_order < 1) {
+            $result = [
+                'success' => false,
+                'msg' => 'The order must be at least 1.'
+            ];
+            return $result;
+        }
+            
+        if($type == 'task') {
+            $task = Task::find($id);
+            $task->order = $new_order;
+            $task->save();
+        } else if($type == 'sub_task') {
+            $sub_task = SubTask::find($id);
+            $sub_task->order = $new_order;
+            $sub_task->save();
+        }
+        
+        $result = [
+            'success' => true,
+            'msg' => 'Order changed successfully.'
+        ];
+        return $result;
+    }
 }
