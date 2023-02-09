@@ -97,7 +97,7 @@
                                 @elseif(Session::get('locale') == 'it')
                                 <i class="fs-5 me-1 flag-icon flag-icon-it"></i>
                                 @else
-                                <i class="fs-5 me-1 flag-icon flag-icon-us"></i>
+                                <i class="fs-5 me-1 flag-icon flag-icon-it"></i>
                                 @endif
                                 <span class="ps-1 fs-6 text-white d-none d-lg-inline-block" style="color: black !important;">
                                     @if(Session::get('locale') == 'en')
@@ -105,7 +105,7 @@
                                     @elseif(Session::get('locale') == 'it')
                                     {{ __('global.italian') }}
                                     @else
-                                    {{ __('global.english') }}
+                                    {{ __('global.italian') }}
                                     @endif
                                 </span>
                             </a>

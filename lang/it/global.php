@@ -15,6 +15,7 @@ return [
     'question' => 'Questionario',
     'reset' => 'Reset',
     'show' => 'Show',
+    'guide' => 'Guida',
     'selector' => 'Questionario 1',
     'calender' => 'Questionario 2',
     'special' => 'Special',
@@ -29,7 +30,7 @@ return [
     'noData' => 'Non ci sono contenuti',
     'view' => 'Vista',
     'modify' => 'Modifica',
-    'export' => 'Export',
+    'export' => 'Esportare',
     'contact' => 'Contatto',
     'appDescription' => 'Log in immediately to proceed with the insertion of contents. If your account is inactive, you can send an email to receive assistance by writing to <a href="javascript::void(0)">assistance@culturedigitali.eu</a> <br>Once logged in, it will be possible to consult the guide on the procedures for inserting content. Thank you.',
     'welcome' => 'Welcome to the ReLuis reporting portal',
@@ -78,6 +79,7 @@ return [
     //---------------------------------//
 
     /***** Login Page*****/
+    'notAllowed' => "Non sei autorizzato ad accedere.",
     'notAccountYet' => "Non hai ancora un account ?",
     'signUp' => 'Iscriviti',
     'signUpHere' => 'Iscriviti qui',
