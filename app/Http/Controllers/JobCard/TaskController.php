@@ -106,11 +106,11 @@ class TaskController extends Controller
         $users = User::pluck('email','id')->all();
 
         $assign_users = [];
-        $i = 0;
         foreach(explode(',', $task->assign_users) as $item) {
-            $assign_users[$i] = $item;
-            ++$i;
+            if($item != null)
+                array_push($assign_users, $item);
         }
+        array_unique($assign_users);
 
         if(!empty(Auth::user()->getRoleNames()) && Auth::user()->hasExactRoles('SuperAdmin') || Auth::user()->hasExactRoles('Admin')) {
             if($request->per_page != null)

@@ -103,14 +103,24 @@
                     {!! Form::text('order', null, array('placeholder' => __('global.enterOrderNum'),'class' => 'form-control')) !!}
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="form-group">
                         <strong>{{ __('global.assignUsers') }}:</strong>
-                        @if($flag == true)
-                        {!! Form::select('assign_users[]', $users, $assign_users, array('class' => 'form-control','multiple')) !!}
-                        @else
-                        {!! Form::select('assign_users[]', $users, $assign_users, array('disabled' => true, 'class' => 'form-control','multiple')) !!}
-                        @endif
+                        <div class="@if($flag == true) enable_div @else disable-div @endif">
+                            @foreach($users as $key => $user)
+                                @if(in_array($key, $assign_users))
+                                <div class="form-check">
+                                    <label>{{ $user }}</label>
+                                    <input class="form-check-input" name="assign_users[]" type="checkbox" value="{{ $key }}" checked>
+                                </div>
+                                @else
+                                <div class="form-check">
+                                    <label>{{ $user }}</label>
+                                    <input class="form-check-input" name="assign_users[]" type="checkbox" value="{{ $key }}">
+                                </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
