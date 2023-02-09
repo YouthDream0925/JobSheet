@@ -24,7 +24,7 @@
             background-color: rgba(255, 255, 255, 0.8);
             text-align: center;
             padding: 20px 0;
-            font-size: 30px;
+            font-size: 11px;
         }
 
         .border-style {
@@ -44,7 +44,7 @@
             float: left;
             border-width: 0px;
             font-weight: normal;
-            font-size: 14px;
+            font-size: 11px;
             font-family: georgia, arial;
             border-radius: 3px;
         }
@@ -59,7 +59,7 @@
 
             border-width: 0px;
             font-weight: normal;
-            font-size: 14px;
+            font-size: 11px;
             font-family: georgia, arial;
             border-radius: 3px;
         }
@@ -74,19 +74,19 @@
             background-color: rgba(255, 255, 255, 0.8);
             text-align: center;
             padding: 10px 0;
-            font-size: 12px;
+            font-size: 11px;
         }
     </style>
 </head>
 
-<body class="antialiased container mt-1" style="max-width: 100% !important;">
+<body class="antialiased container mt-1" style="max-width: 100% !important; font-family: 11px;">
     <div class="grid-container">
         <div class="item1">
             <img id="avatar_container" src="{{ public_path('logo.png') }}" width="184" height="44" title="avatar" class="rounded-4">
         </div>
     </div>
 
-    <h5 class="mt-1">{{ $sub_task->title }}</h5>
+    <h5 class="mt-1" style="font-size: 11px !important;">{{ $sub_task->title }}</h5>
     
     @if($field == true)
     <div class="border-style" style="display: block;">

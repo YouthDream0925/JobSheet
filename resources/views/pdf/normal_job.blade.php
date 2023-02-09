@@ -15,12 +15,12 @@
                 background-color: rgba(255, 255, 255, 0.8);
                 text-align: center;
                 padding: 10px 0;
-                font-size: 12px;
+                font-size: 11px;
             }
         </style>
     </head>
-    <body>
-        <h1>
+    <body style="font-size: 11px !important;">
+        <h1 style="font-size: 11px !important;">
             {{ $job_card->title }}
             @if($job_card->status == 0)
             <span style="color:#ffc107; font-size: 11px;">{{ $status[$job_card->status] }}</span>
@@ -60,7 +60,7 @@
         @endforeach
 
         @foreach($job_card->tasks as $key => $task)
-            <h2>
+            <h2 style="font-size: 11px !important;">
                 {{ $task->title }}
                 @if($task->status == 0)
                 <span style="color:#ffc107; font-size: 11px;">{{ $status[$task->status] }}</span>
@@ -102,7 +102,7 @@
             @endif
 
             @foreach($task->subtasks as $key => $sub_task)
-                <h3>
+                <h3 style="font-size: 11px !important;">
                     {{ $sub_task->title }}
                     @if($sub_task->status == 0)
                     <span style="color:#ffc107; font-size: 11px;">{{ $status[$sub_task->status] }}</span>

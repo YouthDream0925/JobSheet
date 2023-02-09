@@ -12,6 +12,10 @@ return [
     */
 
     /***** global *****/
+    'export_xls' => 'Excel',
+    'export_pdf' => 'PDF',
+    'order' => 'Ordine',
+    'dataEntry' => 'Inserimento dati',
     'question' => 'Questionario',
     'reset' => 'Reset',
     'show' => 'Show',

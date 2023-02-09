@@ -15,12 +15,12 @@
                 background-color: rgba(255, 255, 255, 0.8);
                 text-align: center;
                 padding: 10px 0;
-                font-size: 12px;
+                font-size: 11px;
             }
         </style>
     </head>
-    <body>
-        <h1>
+    <body style="font-size: 11px !important;">
+        <h1 style="font-size: 11px !important;">
             {{ $sub_task->title }}
             @if($sub_task->status == 0)
             <span style="color:#ffc107; font-size: 11px;">{{ $status[$sub_task->status] }}</span>
