@@ -12,6 +12,7 @@ return [
     */
 
     /***** global *****/
+    'name' => 'Name',
     'order' => 'Order',
     'enterOrderNum' => 'Enter Order number',
     'exportQuestionAndMore' => 'Export only Question and More Info',

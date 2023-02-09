@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\URL;
 use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if(env('APP_ENV') === 'production') {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 
     /**
@@ -25,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if(env('APP_ENV') === 'production') {
+            $url->formatScheme('https');
+        }
+
         /********** Controller and View Global Variable **********/
         $setting = Setting::where('type', 'notification')->get();
         if(count($setting) != 0)
