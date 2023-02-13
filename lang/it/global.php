@@ -82,6 +82,14 @@ return [
     //            FrontEnd             //
     //---------------------------------//
 
+    /***** Email Page ******/
+    'resetPassword' => 'Reset Password',
+    'resetPasswordDes' => "Enter the email address you used when you joined and we'll send you instructions to reset your password.",
+    'emailAddressDes' => 'An email will be sent to the above address with a link to set your new passwaord.',
+    'submit' => 'Submit',
+    'backToSignIn' => 'Back to Sign in',
+    'confirmPasswordDes' => 'Please confirm your password before continuing.',
+
     /***** Login Page*****/
     'notAllowed' => "Non sei autorizzato ad accedere.",
     'notAccountYet' => "Non hai ancora un account ?",
