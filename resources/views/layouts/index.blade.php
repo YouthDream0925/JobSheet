@@ -159,11 +159,11 @@
       <!--[ Start:: page title and breadcrumb ]-->
       @yield('breadcrumb')
       <!--[ Start:: page body area ]-->
-      <main class="page-body">
+      <main class="page-body" style="padding-bottom:100px;">
         @yield('content')
       </main>
       <!--[ Start:: page footer link copywrite ]-->
-      <footer class="page-footer py-4 mt-4 ">
+      <footer class="page-footer py-4 mt-4" style="position: fixed;bottom:0;background:#212529;z-index:999;right:0;left:0;">
         <div class="container-fluid txt-center">
           <p class="mb-0 text-muted">© 2022 {!! __('global.footerDescription') !!}</p>
         </div>

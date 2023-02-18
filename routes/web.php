@@ -16,6 +16,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\DocController;
 use Plank\Mediable\Mediable;
 use Spatie\Analytics\Period;
 
@@ -105,6 +106,10 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('messages/{id?}', [MessageController::class, 'index'])->name('messages.index');
     Route::get('messages/delete/{id}', [MessageController::class, 'delete'])->name('messages.delete');
     Route::post('messages/send', [MessageController::class, 'send'])->name('messages.send');
+
+    Route::get('create-word-file/{id}',[DocController::class, 'job'])->name('exportDoc');
+    Route::get('create-word-file/task/{id}',[DocController::class, 'task'])->name('exportDoc.task');
+    Route::get('create-word-file/subTask/{id}',[DocController::class, 'subTask'])->name('exportDoc.subTask');
 
     Route::get('create-pdf-file/{id}', [PDFController::class, 'job'])->name('exportPDF');
     Route::get('create-pdf-file/task/{id}', [PDFController::class, 'task'])->name('exportPDF.task');

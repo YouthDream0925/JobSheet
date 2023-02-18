@@ -26,6 +26,7 @@ return [
     'inputError' => 'Please check input value.',
     'export_pdf' => 'PDF',
     'export_xls' => 'Excel',
+    'export_doc' => 'Word',
     'dataEntrySuccess' => 'Data entry was successful.',
     'excelHeader' => 'Import Export Excel to Database',
     'excel' => 'Excel',

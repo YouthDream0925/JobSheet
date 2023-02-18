@@ -18,6 +18,7 @@
             </li>
         </ol>
         <div>
+            <a href="{{ route('exportDoc.subTask', $sub_task->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-word-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_doc') }}</span></a>
             <a href="{{ route('exportExcel.subTask', $sub_task->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-excel-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_xls') }}</span></a>
             <a href="{{ route('exportPDF.subTask', $sub_task->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-pdf-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_pdf') }}</span></a>
             <a class="btn btn-primary" href="{{ route('tasks.edit', $sub_task->task_id) }}">

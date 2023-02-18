@@ -15,7 +15,9 @@ use App\Exports\TasksExport;
 use App\Exports\SubTaskExport;
 use App\Exports\SubTasksExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Traits\GlobalTrait;
 use PDF;
+use View;
 
 class ExportController extends Controller
 {
@@ -44,10 +46,24 @@ class ExportController extends Controller
         
         if($export_type == "pdf") {
             $pdf = PDF::loadView('pdf.filter_job', $data);
-            return $pdf->download($job_card->title.'.pdf');
+            
+            $document_name= str_replace(array("/", "\\", ":", "*", "?", "«", "<", ">", "|"), "-", $job_card->title);
+            // echo json_encode($document_name);
+            // die();
+            return $pdf->download($document_name.'.pdf');
             // return view('pdf.filter_job', compact('job_card', 'field', 'question', 'phase'));
         } else if($export_type == "excel") {
-            return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
+            $document_name= str_replace(array("/", "\\", ":", "*", "?", "«", "<", ">", "|"), "-", $job_card->title);
+            return Excel::download(new JobCardExport($job_card->id), $document_name.'.xlsx');
+        } else if($export_type == "doc") {
+            $view = View::make('pdf.filter_job', $data)->render();
+            $file_name = strtotime(date('Y-m-d H:i:s')) . '_advertisement_template.docx';
+            $headers = array(
+                "Content-type"=>"text/html",
+                "Content-Disposition"=>"attachment;Filename=".$job_card->title.".doc"
+            );
+    
+            return response()->make($view, 200, $headers);        
         }
     }
 
@@ -84,6 +100,15 @@ class ExportController extends Controller
             // return Excel::download(new JobCardsExport($user_jobs), $user->firstname.'.xlsx');
             // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
             return Excel::download(new JobCardsExport($user_jobs), $user->firstname.'.xlsx');
+        } else if($user_export_type == "doc") {
+            $view = View::make('pdf.filter_job_by_user', $data)->render();
+            $file_name = strtotime(date('Y-m-d H:i:s')) . '_advertisement_template.docx';
+            $headers = array(
+                "Content-type"=>"text/html",
+                "Content-Disposition"=>"attachment;Filename=".$user_jobs->title.".doc"
+            );
+    
+            return response()->make($view, 200, $headers);        
         }
     }
 
@@ -128,7 +153,18 @@ class ExportController extends Controller
             // return view('pdf.filter_job', compact('job_card', 'field', 'question', 'phase'));
         } else if($export_type == "excel") {
             return Excel::download(new TaskExport($task->id), $task->title.'.xlsx');
+        } else if($export_type == "doc") {
+            
+            $view = View::make('pdf.filter_task', $data)->render();
+            $file_name = strtotime(date('Y-m-d H:i:s')) . '_advertisement_template.docx';
+            $headers = array(
+                "Content-type"=>"text/html",
+                "Content-Disposition"=>"attachment;Filename=".$task->title.".doc"
+            );
+
+            return response()->make($view, 200, $headers);        
         }
+
     }
 
     public function tasks_excute_by_user(Request $request)
@@ -163,6 +199,14 @@ class ExportController extends Controller
         } else if($user_export_type == "excel") {
             // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
             return Excel::download(new TasksExport($user_tasks), $user->firstname.' '.$user->lastname.'.xlsx');
+        } else if($user_export_type == "doc") {
+            $view = View::make('pdf.filter_task_by_user', $data)->render();
+            $file_name = strtotime(date('Y-m-d H:i:s')) . '_advertisement_template.docx';
+            $headers = array(
+                "Content-type"=>"text/html",
+                "Content-Disposition"=>"attachment;Filename=".$user_tasks->title.".doc"
+            );
+            return response()->make($view, 200, $headers);                
         }
     }
 
@@ -192,7 +236,15 @@ class ExportController extends Controller
             return $pdf->download($sub_task->title.'.pdf');
             // return view('pdf.filter_job', compact('job_card', 'field', 'question', 'phase'));
         } else if($export_type == "excel") {
-            return Excel::download(new TaskExport($sub_task->id), $sub_task->title.'.xlsx');
+            return Excel::download(new SubTaskExport($sub_task->id), $sub_task->title.'.xlsx');
+        } else if($export_type == "doc") {
+            $view = View::make('pdf.filter_sub', $data)->render();
+            $headers = array(
+                "Content-type"=>"text/html",
+                "Content-Disposition"=>"attachment;Filename=".$sub_task->title.".doc"
+            );
+
+            return response()->make($view, 200, $headers);
         }
     }
 
@@ -228,6 +280,18 @@ class ExportController extends Controller
         } else if($user_export_type == "excel") {
             // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
             return Excel::download(new SubTasksExport($user_sub_tasks), $user->firstname.' '.$user->lastname.'.xlsx');
+        }
+        else if($user_export_type == "doc") {
+            // return Excel::download(new JobCardExport($job_card->id), $job_card->title.'.xlsx');
+
+            $view = View::make('pdf.filter_sub_by_user', $data)->render();
+            $file_name = strtotime(date('Y-m-d H:i:s')) . '_advertisement_template.docx';
+            $headers = array(
+                "Content-type"=>"text/html",
+                "Content-Disposition"=>"attachment;Filename=".$user_sub_tasks->title.".doc"
+            );
+    
+            return response()->make($view, 200, $headers);
         }
     }
 }

@@ -12,6 +12,7 @@ return [
     */
 
     /***** global *****/
+    'export_doc' => 'Word',
     'export_xls' => 'Excel',
     'export_pdf' => 'PDF',
     'order' => 'Ordine',

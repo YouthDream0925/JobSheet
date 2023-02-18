@@ -24,6 +24,7 @@ class PDFController extends Controller
             $pdf = PDF::loadView('pdf.special_job', $data);
         else
             $pdf = PDF::loadView('pdf.normal_job', $data);
+        // \Log::info($job_card);
 
         return $pdf->download($job_card->title.'.pdf');
     }

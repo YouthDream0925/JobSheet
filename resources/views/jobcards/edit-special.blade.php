@@ -16,6 +16,7 @@
             <li class="breadcrumb-item active font-size-28" aria-current="page" data-toggle="tooltip" data-bs-original-title="{{$job_card->description}}">{!! Str::of($job_card->description)->limit(20); !!}</li>
         </ol>
         <div>
+            <a href="{{ route('exportDoc', $job_card->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-word-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_doc') }}</span></a>
             <a href="{{ route('exportExcel', $job_card->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-excel-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_xls') }}</span></a>
             <a href="{{ route('exportPDF', $job_card->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-pdf-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_pdf') }}</span></a>
             <a class="btn btn-primary" href="{{ route('jobcards.index') }}">

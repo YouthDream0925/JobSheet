@@ -17,6 +17,7 @@
             <li class="breadcrumb-item active font-size-28" aria-current="page">{{ __('global.edit') }}</li>
         </ol>
         <div>
+            <a href="{{ route('exportDoc.task', $task->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-excel-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_doc') }}</span></a>
             <a href="{{ route('exportExcel.task', $task->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-excel-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_xls') }}</span></a>
             <a href="{{ route('exportPDF.task', $task->id) }}" class="btn btn-outline-secondary"><i class="fa fa-file-pdf-o"></i> <span class="d-lg-inline-flex d-none">{{ __('global.export_pdf') }}</span></a>
             <a class="btn btn-primary" href="{{ route('jobcards.edit', $task->job_id) }}">
@@ -838,6 +839,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script type="text/javascript">
+    
     $('.btn-delete').click(function(event) {
         var subTask_id = $(this).attr('data-taskID');
         swal({
